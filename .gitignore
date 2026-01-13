@@ -13,6 +13,11 @@ wp-content/themes/*
 *.sql
 *.sql.gz
 
+# Archives
+*.zip
+*.tar.gz
+*.rar
+
 # Config
 wp-config.php
 .env
