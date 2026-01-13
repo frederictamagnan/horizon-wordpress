@@ -1,0 +1,77 @@
+/* Header et navigation */
+header {
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--blue);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: var(--yellow-dark);
+  background-color: rgba(78, 127, 191, 0.05);
+  border-radius: 4px;
+}
+
+nav ul li:hover .sub-menu {
+  display: block;
+}
+
+.sub-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  min-width: 200px;
+  padding: 0.5rem 0;
+}
+
+.sub-menu li {
+  display: block;
+}
+
+.sub-menu li a {
+  padding: 0.75rem 1.5rem;
+  color: var(--text-color);
+}
+
+.sub-menu li a:hover {
+  background-color: rgba(217, 187, 37, 0.2);
+  color: var(--blue);
+}

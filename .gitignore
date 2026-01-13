@@ -1,0 +1,36 @@
+# WordPress core files
+wp-admin/
+wp-includes/
+*.php
+!wp-content/
+
+# Keep only our custom theme
+wp-content/plugins/*
+wp-content/themes/*
+!wp-content/themes/horizon-belleisle/
+
+# Database
+*.sql
+*.sql.gz
+
+# Config
+wp-config.php
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+uv.lock
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

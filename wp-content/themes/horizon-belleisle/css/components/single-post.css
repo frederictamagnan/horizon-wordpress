@@ -1,0 +1,93 @@
+/* Article individuel */
+.single-post-article {
+  background-color: #FFFFFF;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 3rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 3rem;
+}
+
+.entry-header {
+  margin-bottom: 2rem;
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.entry-header h1 {
+  color: var(--blue);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.entry-meta {
+  color: #666;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.entry-meta .categories {
+  display: inline-block;
+}
+
+.entry-meta .categories a {
+  color: var(--blue);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.entry-meta .categories a:hover {
+  color: var(--yellow-dark);
+}
+
+.entry-thumbnail {
+  margin: 2rem 0;
+  text-align: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.entry-thumbnail img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+}
+
+.entry-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.entry-content p {
+  margin-bottom: 1.5rem;
+}
+
+.entry-content h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.entry-content ul {
+  list-style: disc;
+  padding-left: 2rem;
+  margin: 1rem 0;
+}
+
+.entry-content ul li {
+  margin-bottom: 0.5rem;
+}
+
+.entry-footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--border-color);
+  text-align: center;
+}

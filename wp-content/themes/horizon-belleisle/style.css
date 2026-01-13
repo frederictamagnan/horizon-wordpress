@@ -1,0 +1,21 @@
+/*
+Theme Name: Horizon Belle-Isle
+Theme URI: https://horizon-belleisle.fr
+Description: Thème personnalisé pour l'école de voile Horizon Belle-Isle
+Version: 1.0
+Author: Horizon Belle-Isle
+Text Domain: horizon-belleisle
+*/
+
+/* Import des composants modulaires */
+@import url('css/components/variables.css');
+@import url('css/components/base.css');
+@import url('css/components/header.css');
+@import url('css/components/hero.css');
+@import url('css/components/sections.css');
+@import url('css/components/cards.css');
+@import url('css/components/news.css');
+@import url('css/components/single-post.css');
+@import url('css/components/buttons.css');
+@import url('css/components/footer.css');
+@import url('css/components/responsive.css');

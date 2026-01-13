@@ -1,0 +1,517 @@
+/*
+Theme Name: Horizon Belle-Isle
+Theme URI: https://horizon-belleisle.fr
+Description: Thème personnalisé pour l'école de voile Horizon Belle-Isle
+Version: 1.0
+Author: Horizon Belle-Isle
+Text Domain: horizon-belleisle
+*/
+
+/* Palette de couleurs Horizon Belle-Isle */
+:root {
+  --blue: #4E7FBF;
+  --yellow-light: #D9BB25;
+  --yellow-dark: #D9AD29;
+  --brown: #8C591B;
+  --white: #F2F2F2;
+  --text-color: #333;
+  --border-color: #86a8d9;
+}
+
+/* Reset et base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--white);
+}
+
+/* Header et navigation */
+header {
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--blue);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: var(--yellow-dark);
+  background-color: rgba(78, 127, 191, 0.05);
+  border-radius: 4px;
+}
+
+nav ul li:hover .sub-menu {
+  display: block;
+}
+
+.sub-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  min-width: 200px;
+  padding: 0.5rem 0;
+}
+
+.sub-menu li {
+  display: block;
+}
+
+.sub-menu li a {
+  padding: 0.75rem 1.5rem;
+  color: var(--text-color);
+}
+
+.sub-menu li a:hover {
+  background-color: rgba(217, 187, 37, 0.2);
+  color: var(--blue);
+}
+
+/* Container principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Hero section */
+.hero {
+  background: linear-gradient(135deg, var(--blue) 0%, #6190cc 100%);
+  color: var(--white);
+  padding: 4rem 2rem;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+  font-size: 1.3rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Sections */
+section {
+  margin-bottom: 3rem;
+}
+
+section h2 {
+  color: var(--blue);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--yellow-light);
+}
+
+section h3 {
+  color: var(--brown);
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Cards pour les locations/stages */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background-color: #FFFFFF;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(78, 127, 191, 0.3);
+}
+
+.card h3 {
+  color: var(--blue);
+  margin-top: 0;
+}
+
+.card p {
+  margin-bottom: 1rem;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--yellow-dark);
+  margin-top: 1rem;
+}
+
+/* Boutons */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--yellow-light);
+  color: var(--brown);
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: var(--yellow-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer */
+footer {
+  background-color: var(--blue);
+  color: var(--white);
+  padding: 2rem;
+  margin-top: 4rem;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.footer-info {
+  text-align: left;
+}
+
+.footer-info p {
+  margin: 0.5rem 0;
+}
+
+.footer-logo {
+  flex-shrink: 0;
+}
+
+.ffv-logo {
+  height: 60px;
+  width: auto;
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+footer a {
+  color: var(--yellow-light);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* WordPress specific */
+.entry-content ul {
+  list-style: disc;
+  padding-left: 2rem;
+  margin: 1rem 0;
+}
+
+.entry-content ul li {
+  margin-bottom: 0.5rem;
+}
+
+/* Actualités */
+.actualites-home {
+  background-color: #f8f9fa;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-top: 3rem;
+}
+
+.actualites-home h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+  margin: -1.5rem -1.5rem 1rem -1.5rem;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.card h3 a {
+  color: var(--brown);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.card h3 a:hover {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+.card-meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-meta time::before {
+  content: "📅 ";
+}
+
+.card-excerpt {
+  color: #555;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.card .btn {
+  width: 100%;
+  text-align: center;
+}
+
+/* Page Actualités */
+.actualites-home .cards-grid,
+.page-actualites .cards-grid {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+/* Article individuel */
+.single-post-article {
+  background-color: #FFFFFF;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 3rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 3rem;
+}
+
+.entry-header {
+  margin-bottom: 2rem;
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.entry-header h1 {
+  color: var(--blue);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.entry-meta {
+  color: #666;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.entry-meta .categories {
+  display: inline-block;
+}
+
+.entry-meta .categories a {
+  color: var(--blue);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.entry-meta .categories a:hover {
+  color: var(--yellow-dark);
+}
+
+.entry-thumbnail {
+  margin: 2rem 0;
+  text-align: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.entry-thumbnail img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+}
+
+.entry-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.entry-content p {
+  margin-bottom: 1.5rem;
+}
+
+.entry-content h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.entry-footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--border-color);
+  text-align: center;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 3rem 0;
+  flex-wrap: wrap;
+}
+
+.pagination a,
+.pagination .current {
+  padding: 0.5rem 1rem;
+  background-color: var(--white);
+  color: var(--blue);
+  text-decoration: none;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.pagination a:hover {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.pagination .current {
+  background-color: var(--blue);
+  color: var(--white);
+  font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .sub-menu {
+    position: static;
+    box-shadow: none;
+    padding-left: 1rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-info {
+    text-align: center;
+  }
+
+  .single-post-article {
+    padding: 1.5rem;
+  }
+
+  .entry-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .entry-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
