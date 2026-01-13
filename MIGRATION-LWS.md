@@ -1,134 +1,160 @@
-# Guide de Migration vers LWS
+# Guide de Migration vers LWS (belleile-voile.com)
 
 ## Prérequis
-- Accès à l'explorateur de fichiers LWS (FTP ou File Manager)
+- Accès à l'explorateur de fichiers LWS
 - Accès à phpMyAdmin sur LWS
-- Base de données MySQL créée sur LWS
+- WordPress déjà installé sur LWS à https://belleile-voile.com/
 
-## Étape 1 : Export de la base de données locale
+## Fichiers nécessaires pour la migration
+- `wordpress_export_20260113_181847.sql` (655KB) - Base de données
+- `wp-content.zip` (15MB) - Tout le contenu (thème + traductions)
 
+## Méthode 1 : Migration complète (RECOMMANDÉE)
+
+### Étape 1 : Export depuis Docker local (DÉJÀ FAIT)
 ```bash
-./export_database.sh
+./export_database.sh  # Génère wordpress_export_YYYYMMDD_HHMMSS.sql
+zip -r wp-content.zip wp-content  # Crée wp-content.zip
 ```
 
-Ce script va créer un fichier `wordpress_export_YYYYMMDD_HHMMSS.sql` avec toute la base de données.
+### Étape 2 : Sur LWS via phpMyAdmin
+1. Connecte-toi à phpMyAdmin
+2. Sélectionne ta base de données
+3. Onglet **"Opérations"** > **"Supprimer la base de données"** (ou supprime toutes les tables wp_* manuellement)
+4. Recrée la base si nécessaire
+5. Onglet **"Importer"** > Choisis `wordpress_export_20260113_181847.sql`
+6. Clique sur **"Exécuter"**
 
-**Alternative manuelle :**
-```bash
-docker exec horizon-wordpress-db-1 mysqldump -uwordpress -pwordpress wordpress > wordpress_export.sql
-```
+### Étape 3 : Upload wp-content.zip sur LWS
+1. Via l'explorateur de fichiers LWS, va à la racine de ton WordPress
+2. Upload `wp-content.zip`
+3. Dézipme-le (remplace le dossier wp-content existant)
+4. Supprime le fichier .zip après extraction
 
-## Étape 2 : Préparation des fichiers
-
-Les fichiers à copier sur LWS :
-- `wp-content/themes/horizon-belleisle/` (tout le dossier du thème)
-- `wp-content/languages/` (fichiers de traduction française)
-
-**Note :** WordPress core (wp-admin, wp-includes) est déjà installé sur LWS, pas besoin de le copier.
-
-## Étape 3 : Import de la base de données sur LWS
-
-1. Connecte-toi à **phpMyAdmin** sur ton hébergement LWS
-2. Sélectionne ta base de données (ou crée-en une nouvelle)
-3. Va dans l'onglet **"Importer"**
-4. Choisis le fichier `.sql` exporté à l'étape 1
-5. Clique sur **"Exécuter"**
-
-⚠️ **Important :** Si tu as déjà des tables WordPress, il faut les supprimer avant l'import, ou bien cocher "DROP TABLE IF EXISTS" lors de l'export.
-
-## Étape 4 : Upload des fichiers du thème
-
-Via l'explorateur de fichiers LWS :
-1. Va dans le dossier `wp-content/themes/`
-2. Upload tout le dossier `horizon-belleisle/`
-3. Vérifie que tous les sous-dossiers sont présents :
-   - `css/components/`
-   - `images/`
-   - `pages-content/`
-   - Les fichiers PHP à la racine
-
-## Étape 5 : Configuration wp-config.php
-
-Sur LWS, édite le fichier `wp-config.php` avec les informations de connexion fournies par LWS :
-
-```php
-define('DB_NAME', 'nom_base_lws');
-define('DB_USER', 'utilisateur_lws');
-define('DB_PASSWORD', 'mot_de_passe_lws');
-define('DB_HOST', 'localhost'); // ou l'hôte fourni par LWS
-```
-
-## Étape 6 : Mise à jour des URLs (si nécessaire)
-
-Si ton site passe de `localhost:8080` à `horizon-belleisle.fr`, il faut mettre à jour les URLs dans la base de données.
-
-**Via phpMyAdmin :**
+### Étape 4 : Mise à jour des URLs
+Via phpMyAdmin, exécute ces requêtes SQL :
 ```sql
-UPDATE wp_options SET option_value = 'https://horizon-belleisle.fr' WHERE option_name = 'siteurl';
-UPDATE wp_options SET option_value = 'https://horizon-belleisle.fr' WHERE option_name = 'home';
+UPDATE wp_options SET option_value = 'https://belleile-voile.com' WHERE option_name = 'siteurl';
+UPDATE wp_options SET option_value = 'https://belleile-voile.com' WHERE option_name = 'home';
 ```
 
-**OU via un plugin :** Installe le plugin "Better Search Replace" depuis wp-admin pour remplacer toutes les occurrences.
+### Étape 5 : Vérifications
+1. Va sur https://belleile-voile.com
+2. Vérifie que le thème Horizon Belle-Isle s'affiche
+3. Teste la navigation et les pages
+4. Teste wp-admin : https://belleile-voile.com/wp-admin
 
-## Étape 7 : Vérifications
+## Méthode 2 : Migration par parties (si problèmes)
 
-1. Accède à `https://ton-domaine.fr`
-2. Vérifie que le thème s'affiche correctement
-3. Teste la navigation (menu, pages, actualités)
-4. Vérifie les images et styles CSS
-5. Teste l'admin : `https://ton-domaine.fr/wp-admin`
+### Étape 1 : Import de la base de données
+Même que Méthode 1, Étape 2
+
+### Étape 2 : Upload du thème uniquement
+1. Upload le dossier `wp-content/themes/horizon-belleisle/` via FTP/explorateur
+2. Vérifie que tous les sous-dossiers sont présents :
+   - `css/components/` (11 fichiers CSS)
+   - `images/` (logo.png, ffv.jpg)
+   - `pages-content/` (4 fichiers HTML)
+   - Tous les fichiers PHP à la racine
+
+### Étape 3 : Upload des traductions françaises
+Upload le dossier `wp-content/languages/` complet
+
+### Étape 4 : Même que Méthode 1, Étapes 4 et 5
+
+## Configuration wp-config.php
+
+⚠️ **Important :** Le wp-config.php est déjà créé par LWS, ne le modifie PAS sauf si tu as des erreurs de connexion DB.
+
+Si tu as des erreurs, vérifie que wp-config.php contient les bons identifiants fournis par LWS :
+```php
+define('DB_NAME', 'ton_nom_base_lws');
+define('DB_USER', 'ton_user_lws');
+define('DB_PASSWORD', 'ton_password_lws');
+define('DB_HOST', 'localhost'); // ou autre selon LWS
+```
 
 ## Problèmes courants
 
+### Le site demande d'installer WordPress
+- Les tables de la base de données n'ont pas été importées correctement
+- Vérifie que l'import SQL s'est terminé sans erreur
+- Réessaye l'import après avoir supprimé toutes les tables
+
 ### Les CSS ne se chargent pas
 - Vide le cache du navigateur (Ctrl+F5)
-- Vérifie les permissions des fichiers (644 pour les fichiers, 755 pour les dossiers)
-- Vérifie que le dossier `css/components/` est bien uploadé
+- Vérifie que le dossier `wp-content/themes/horizon-belleisle/css/` existe
+- Vérifie les permissions : 755 pour les dossiers, 644 pour les fichiers
 
 ### Erreur de connexion à la base de données
 - Vérifie les informations dans wp-config.php
-- Vérifie que la base de données est bien créée sur LWS
-- Vérifie que l'utilisateur a les droits sur cette base
+- Contacte le support LWS pour obtenir les bons identifiants
 
-### Le site affiche le thème par défaut
-- Active le thème "Horizon Belle-Isle" depuis wp-admin > Apparence > Thèmes
-- Ou via SQL :
+### Le site affiche le thème Twenty Twenty-Four (thème par défaut)
+Active le thème via SQL :
 ```sql
 UPDATE wp_options SET option_value = 'horizon-belleisle' WHERE option_name = 'template';
 UPDATE wp_options SET option_value = 'horizon-belleisle' WHERE option_name = 'stylesheet';
 ```
 
-### Les permalinks ne fonctionnent pas
-- Va dans wp-admin > Réglages > Permaliens
-- Re-enregistre la structure (clic sur "Enregistrer" sans rien changer)
-- Vérifie que le fichier `.htaccess` existe et est modifiable
+### Les permalinks ne fonctionnent pas (pages 404)
+1. Va dans wp-admin > Réglages > Permalinks
+2. Vérifie que c'est bien **"Titre de la publication"** (/%postname%/)
+3. Clique sur "Enregistrer" même sans rien changer
+4. Vérifie que le fichier `.htaccess` existe et contient les bonnes règles de réécriture
 
-## Checklist finale
+### Le menu n'affiche pas les bons items
+Le menu est dans la base de données, il devrait fonctionner après l'import. Si problème :
+```sql
+SELECT * FROM wp_posts WHERE post_type = 'nav_menu_item';
+```
 
-- [ ] Base de données importée
-- [ ] Thème uploadé dans wp-content/themes/
-- [ ] wp-config.php configuré avec les infos LWS
-- [ ] URLs mises à jour (si domaine différent)
-- [ ] Site accessible et fonctionnel
-- [ ] Admin accessible (wp-admin)
-- [ ] Navigation et menu fonctionnels
-- [ ] Page Actualités fonctionne
+## Checklist de migration
+
+- [ ] Export local fait : `wordpress_export_20260113_181847.sql` + `wp-content.zip`
+- [ ] Suppression des tables wp_* sur LWS via phpMyAdmin
+- [ ] Import du fichier .sql sur LWS
+- [ ] Upload et décompression de wp-content.zip
+- [ ] Mise à jour des URLs vers https://belleile-voile.com
+- [ ] Site accessible et affiche le bon thème
+- [ ] Navigation fonctionne (menu, pages, actualités)
+- [ ] Admin accessible avec les credentials locaux
 - [ ] CSS et images chargent correctement
+- [ ] Page Actualités fonctionne
 - [ ] Footer avec lien Instagram présent
+- [ ] Permalinks fonctionnent (pas de 404)
 
 ## Scripts SQL utiles
 
-### Réinitialiser le mot de passe admin
+### Vérifier les URLs actuelles
+```sql
+SELECT option_name, option_value FROM wp_options WHERE option_name IN ('siteurl', 'home');
+```
+
+### Réinitialiser le mot de passe admin (si nécessaire)
 ```sql
 UPDATE wp_users SET user_pass = MD5('nouveau_mot_de_passe') WHERE user_login = 'admin';
 ```
 
 ### Vérifier le thème actif
 ```sql
-SELECT * FROM wp_options WHERE option_name IN ('template', 'stylesheet');
+SELECT option_name, option_value FROM wp_options WHERE option_name IN ('template', 'stylesheet');
 ```
 
 ### Lister toutes les pages
 ```sql
-SELECT ID, post_title, post_name, post_status FROM wp_posts WHERE post_type = 'page';
+SELECT ID, post_title, post_name, post_status FROM wp_posts WHERE post_type = 'page' ORDER BY post_title;
 ```
+
+### Vérifier la structure des permalinks
+```sql
+SELECT option_value FROM wp_options WHERE option_name = 'permalink_structure';
+```
+-- Devrait retourner: /%postname%/
+
+## Support
+
+Si tu rencontres des problèmes :
+1. Vérifie les logs d'erreur PHP sur LWS
+2. Active le mode debug WordPress temporairement (dans wp-config.php : `define('WP_DEBUG', true);`)
+3. Contacte le support LWS si problème de configuration serveur
